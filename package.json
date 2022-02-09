@@ -22,8 +22,7 @@
   },
   "lint-staged": {
     "*.{js,ts,json,vue,md}": [
-      "prettier --write",
-      "yarn test"
+      "prettier --write"
     ]
   },
   "prettier": "@limy-org/prettier-config"
