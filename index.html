@@ -5,6 +5,26 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+    <script type="text/javascript">
+      !(function (w, d, m) {
+        function r() {
+          var t = 100,
+            o = 750,
+            e = d.documentElement.clientWidth || w.innerWidth,
+            n = m.max(m.min(e, 480), 320),
+            h = 50;
+          320 >= n && (h = m.floor((n / o) * t * 0.99)),
+            n > 320 && 362 >= n && (h = m.floor((n / o) * t * 1)),
+            n > 362 && 375 >= n && (h = m.floor((n / o) * t * 1)),
+            n > 375 && (h = m.floor((n / o) * t * 0.97)),
+            (d.querySelector('html').style.fontSize = h + 'px');
+        }
+        r();
+        w.onresize = function () {
+          r();
+        };
+      })(window, document, Math);
+    </script>
   </head>
   <body>
     <div id="app"></div>

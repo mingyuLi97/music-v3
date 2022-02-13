@@ -1,8 +1,12 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
+
+import { searchSong } from './service/interface/search';
+
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue';
 const a = 1;
+
+searchSong('红日').then(console.log).catch(console.error);
 </script>
 
 <template>

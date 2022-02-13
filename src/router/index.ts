@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior: () => ({ top: 0 }),
   routes: [
     {
       path: '/',
@@ -11,6 +12,11 @@ const router = createRouter({
       path: '/Home',
       name: 'Home',
       component: () => import('../views/Home.vue')
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: () => import('../views/login/Login.vue')
     },
     {
       path: '/recommend/SongList',
