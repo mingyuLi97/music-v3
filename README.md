@@ -1,11 +1,14 @@
-# Vue 3 + Typescript + Vite
+# 仿网易云音乐移动端 music-app
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> 此项目仅供学习和交流
 
-## Recommended IDE Setup
+## 后端项目
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+https://github.com/Binaryify/NeteaseCloudMusicApi
 
-## Type Support For `.vue` Imports in TS
+## 技术栈
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- vue3@3.2.25
+- vite@2.8.0
+- vue-router@4.0.12
+- axios@0.25.0
