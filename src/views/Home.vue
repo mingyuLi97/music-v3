@@ -1,11 +1,11 @@
 <template>
-  <div>Home</div>
+  <div>
+    <SearchButton />
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SearchButton from '@/components/SearchButton.vue';
+</script>
 
-<style lang="scss" scoped>
-div {
-  color: red;
-}
-</style>
+<style lang="scss" scoped></style>
