@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { DEFAULT_CONFIG } from './config';
 
+export interface IBaseResponse<T = any> {
+  code: number;
+  data: T;
+  message?: string;
+}
+
 const service = axios.create(DEFAULT_CONFIG);
 
 service.interceptors.request.use(config => {
