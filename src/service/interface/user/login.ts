@@ -5,17 +5,13 @@
  */
 
 import service from '@/service';
+import { IUserProfile } from 'types/userType';
 
 interface LoginResponse {
   code: number;
   cookie: string;
   loginType: number;
-  profile: {
-    nickname: string;
-    userId: number;
-    userType: number;
-    vipType: number;
-  };
+  profile: IUserProfile;
   token: string;
 }
 

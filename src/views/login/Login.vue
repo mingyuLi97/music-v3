@@ -58,8 +58,10 @@ import { computed, ref } from 'vue';
 import { FormInstance } from 'vant';
 import { createBEM } from '@/utils/bem';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/store/User';
 const bem = createBEM('login-view');
 const router = useRouter();
+const userStore = useUserStore();
 
 const phone = ref<number | null>(null);
 let password = ref('');
@@ -112,6 +114,7 @@ async function login() {
     captcha: captcha.value
   });
   if (res.code === 200) {
+    userStore.initProfile(res.profile);
     router.push('/Home');
   }
   console.log('login res:', res);
