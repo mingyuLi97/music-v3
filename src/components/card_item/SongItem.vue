@@ -40,11 +40,13 @@ artistStr.value = props.songData.artists.map(item => item.name).join('&');
   overflow: hidden;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
   img {
     width: 1rem;
     height: 1rem;
     border-radius: 0.1rem;
     margin-right: 0.2rem;
+    border: 0.5px solid #f0f0f0;
   }
   &__container {
     height: 100%;
