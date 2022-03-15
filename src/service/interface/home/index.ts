@@ -12,6 +12,10 @@ export interface IBannerInfo {}
 type HomePageResponse = IBaseResponse<{
   cursor: string;
   blocks: Block[];
+  hasMore: boolean;
+  pageConfig: {
+    nodataToast: string;
+  };
 }>;
 
 export type Block = IHomePageBannerBlock | HomePageBlock;
@@ -66,8 +70,13 @@ export interface IHomePageDragonBall {
   homepageMode: string;
 }
 
-export function getHomepage() {
-  return service.get<any, HomePageResponse>('/homepage/block/page');
+export function getHomepage(refresh = false, cursor = '') {
+  return service.get<any, HomePageResponse>('/homepage/block/page', {
+    params: {
+      refresh,
+      cursor
+    }
+  });
 }
 
 export function getHomepageDragonBall() {

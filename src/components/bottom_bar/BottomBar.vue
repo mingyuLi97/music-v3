@@ -43,8 +43,6 @@ function onClick(index: number) {
 .bottom-bar {
   display: flex;
   justify-content: space-around;
-  position: fixed;
-  bottom: 0;
   width: 100%;
   padding: 5px 0 15px 0;
   background-color: white;

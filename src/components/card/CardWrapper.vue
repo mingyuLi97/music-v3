@@ -61,10 +61,16 @@ function onTitleClick(index: number) {
 
   &__title {
     position: relative;
+    max-width: 5rem;
+    flex: 1;
+    display: block;
     font-size: 18px;
     font-weight: bold;
     color: #969696;
     padding: 0 0.3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &:not(:last-child)::after {
       position: absolute;

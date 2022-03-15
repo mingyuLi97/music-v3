@@ -7,23 +7,31 @@
   <div :class="bem()">
     <header>
       <SideViewButton />
-      <SearchButton route-path="" style="margin: 0 0.3rem" />
+      <SearchButton route-path="" style="margin: 0 0.2rem" />
       <!-- TODO：换成功能按钮 -->
       <SideViewButton />
     </header>
-
-    <component
-      v-for="(item, index) in blocks"
-      :key="index"
-      :item="item"
-      :is="getRenderComponent(item)"
+    <LoadmoreVue
+      v-model:loading="loading"
+      :class="bem('scroll')"
+      loading-text="加载中..."
+      :finished="!hasMore"
+      finished-text="没有更多了"
+      @load="request"
     >
-    </component>
+      <component
+        v-for="(item, index) in blocks"
+        :key="index"
+        :item="item"
+        :is="getRenderComponent(item)"
+      >
+      </component>
+    </LoadmoreVue>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import SearchButton from '@/components/SearchButton.vue';
 import SideViewButton from '@/components/SideViewButton.vue';
 import Banner from './Banner.vue';
@@ -32,10 +40,16 @@ import SlidePlaylistVue from './SlidePlaylist.vue';
 import { createBEM } from '@/utils/bem';
 import { Block, getHomepage } from '@/service/interface/home';
 import SongListAlignVue from './SongListAlign.vue';
+import { Toast } from 'vant';
+import LoadmoreVue from '@/components/loadmore/Loadmore.vue';
 
 const bem = createBEM('discover-page');
 
 const blocks = reactive<Block[]>([]);
+// 用来进行分页
+let cursor = '';
+const hasMore = ref(true);
+const loading = ref(false);
 
 function getRenderComponent(item: Block) {
   const map: { [K in Block['showType']]: any } = {
@@ -48,26 +62,65 @@ function getRenderComponent(item: Block) {
   return map[item.showType];
 }
 
-getHomepage().then(res => {
-  if (res.code === 200) {
-    blocks.push(...res.data.blocks);
-    blocks.splice(1, 0, {
-      showType: 'DRAGON_BALL'
-    });
+async function initFirstPage() {
+  console.log(`[DiscoverPage] initFirstPage`);
+  try {
+    await request();
+    // blocks.splice(1, 0, {
+    //   showType: 'DRAGON_BALL'
+    // });
+  } catch (error) {
+    console.error(`[DiscoverPage] initFirstPage`, error);
   }
-  console.log('getHomepage', res);
-  const cursor = JSON.parse(res.data.cursor);
-  console.log('getHomepage cursor', cursor);
-});
+}
+/**
+ * 请求后端数据
+ * @param refresh 是否刷新页面
+ */
+async function request(refresh = false) {
+  if (!hasMore.value) {
+    return;
+  }
+  try {
+    const res = await getHomepage(refresh, cursor);
+    console.log(`[DiscoverPage] request`, res);
+    if (res.code === 200) {
+      cursor = res.data.cursor;
+      hasMore.value = res.data.hasMore;
+      blocks.push(...res.data.blocks);
+    }
+  } catch (error) {
+    console.log(`[DiscoverPage] request error`, error);
+    Toast('请求错误');
+  } finally {
+    loading.value = false;
+  }
+}
+
+initFirstPage();
 </script>
 
 <style lang="scss" scoped>
 .discover-page {
+  height: 100%;
+  padding-top: 1rem;
   header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 2;
     display: flex;
     align-items: center;
     height: 1rem;
     padding: 0 0.3rem;
+    background-color: #fff;
+  }
+
+  &__scroll {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
   }
 }
 </style>
